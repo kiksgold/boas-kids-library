@@ -5,7 +5,7 @@ import uuid
 
 
 class Book(models.Model):
-    # Model representing a book 
+    # Model representing a book
     title = models.CharField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="library_books")
     cover_image = CloudinaryField('image', default='placeholder')
@@ -47,7 +47,7 @@ class Review(models.Model):
 
 
 class BookInstance(models.Model):
-    #Model representing a specific copy of a book (i.e. that can be borrowed from the library).
+    # Model representing a specific copy of a book (i.e. that can be borrowed from the library).
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across whole library')
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     due_back = models.DateField(null=True, blank=True)
@@ -71,5 +71,5 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
     def __str__(self):
-        #String for representing the Model object.
+        # String for representing the Model object.
         return f'{self.id} ({self.book.title})'
